@@ -13,7 +13,7 @@ export async function place_items(){
             item.items.forEach(fud => {
                 let discountPrice = discountedPrice(fud.normalPrice, fud.discountPrice)
 
-            if(document.baseURI.split("#")[0] == 'http://127.0.0.1:5501/public_html/all_services.html'){
+            try{
                 if(item.name == host.id){
                     let chi;
                     for (const key in host.children) {
@@ -55,8 +55,9 @@ export async function place_items(){
                     </div>
                     `;
                 }
-            }else if(document.baseURI == 'http://127.0.0.1:5501/public_html/'){
+            }catch(err){
                 let row = document.querySelector('.row-list')
+                let row_tl = document.querySelector('.main_menu_items')
                 row.innerHTML += `
                 <div class="col-md-6 mb-4 itemInHome">
                     <a href="./all_services.html#${item.name}" class="custom-list">
@@ -74,6 +75,19 @@ export async function place_items(){
                             <div class="body">
                                 <p>${fud.description}</p>
                             </div>
+                        </div>
+                    </a>
+                </div>
+                `;
+                row_tl.innerHTML += `
+                <div class="col-md-6 my-4">
+                    <a href="#" class="pb-3 mx-3 d-block text-dark text-decoration-none border border-left-0 border-top-0 border-right-0">
+                        <div class="d-flex">
+                            <div class="flex-grow-1">
+                                ${fud.name}
+                                <p class="mt-1 mb-0">${fud.description}</p>
+                            </div>
+                            <h6 class="float-right text-primary">$${fud.normalPrice}</h6>
                         </div>
                     </a>
                 </div>
